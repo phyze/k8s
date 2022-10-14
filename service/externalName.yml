@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "mflow"
+spec:
+  type: ExternalName
+  externalName: www.mflowthai.com
+  ports:
+    - name: https
+      port: 443
+      protocol: TCP

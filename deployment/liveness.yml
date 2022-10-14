@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liveness
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: liveness
+  template:
+    metadata:
+      labels:
+        app: liveness
+    spec:
+      containers:
+      - name: liveness
+        image: ghcr.io/phyze/k8s/readlive
+        resources:
+          limits:
+            memory: "50Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /healthz-liveness
+            port: 8080
+          initialDelaySeconds: 1
+          periodSeconds: 3
+          failureThreshold: 1
+          successThreshold: 1
+

@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    resources:
+      limits:
+        memory: "70Mi"
+        cpu: "10m"
+    ports:
+      - containerPort: 80
+    env:
+      - name: MyKey
+        valueFrom:
+          configMapKeyRef:
+            name: nginx
+            key: MyKey
+    volumeMounts:
+      - name: default
+        mountPath: "/etc/nginx/conf.d/default.conf"
+        subPath: "default.conf"
+        readOnly: true
+      - name: index
+        mountPath: "/usr/share/nginx/html/index.html"
+        subPath: "index.html"
+        readOnly: true
+  volumes:
+    - name: default
+      configMap:
+        name: nginx
+        items:
+          - key: default.conf
+            path: default.conf
+    - name: index
+      configMap:
+        name: nginx
+        items:
+        - key: index.html
+          path: index.html

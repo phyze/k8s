@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: financial
+  labels:
+    app: financial
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      app: financial
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: financial
+        tier: backend
+    spec:
+      containers:
+      - name: financial
+        image: ghcr.io/phyze/k8s/financial
+        resources:
+          limits:
+            memory: "50Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: financial
+spec:
+  selector:
+    app: financial
+    tier: backend
+  ports:
+  - port: 80
+    targetPort: 8080

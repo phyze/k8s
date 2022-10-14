@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: https
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - "coj.training"
+      secretName: tls
+  rules:
+  - host: "coj.training"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/bookstore"
+        backend:
+          service:
+            name: bookstore
+            port: 
+              number: 8080
+      - pathType: Prefix
+        path: "/financial"
+        backend:
+          service:
+            name: financial
+            port: 
+              number: 8080
+            

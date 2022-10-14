@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: mflowip
+subsets:
+- addresses:
+  - ip: 45.117.208.83
+  ports:
+  - port: 443
+    name: mflow
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mflowip
+spec:
+  type: ClusterIP
+  ports:
+  - name:  mflow
+    port:  443
+    protocol: TCP
