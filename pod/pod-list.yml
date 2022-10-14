@@ -20,4 +20,4 @@ metadata:
 spec:
   containers:
   - name: hello2
-    image: gcr.io/google-samples/hello-app:1.0
+    image: gcr.io/google-samples/hello-app:2.0
