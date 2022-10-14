@@ -36,6 +36,15 @@ kubectl apply -f bookstore-l.yml
 kubectl apply -f limit.yml
 ```
 
+
+สังเกตว่า จะแสดง error ว่าเกิน limit resource
+
 ```sh
 kubectl apply -f pod-over-resource.yml
+```
+
+# clean
+
+```sh
+kubectl 
 ```

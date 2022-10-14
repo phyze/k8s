@@ -15,4 +15,3 @@ spec:
       limits:
         cpu: 110m
         memory: 110Mi
-  priorityClassName: medium
