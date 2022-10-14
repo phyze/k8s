@@ -7,8 +7,8 @@ items:
     name: pods-high
   spec:
     hard:
-      cpu: "1"
-      memory: 1Gi
+      cpu: "300m"
+      memory: 300Mi
       pods: "3"
     scopeSelector:
       matchExpressions:
@@ -21,8 +21,8 @@ items:
     name: pods-medium
   spec:
     hard:
-      cpu: "500m"
-      memory: 500Mi
+      cpu: "150m"
+      memory: 200Mi
       pods: "3"
     scopeSelector:
       matchExpressions:
@@ -35,8 +35,8 @@ items:
     name: pods-low
   spec:
     hard:
-      cpu: "250"
-      memory: 250Mi
+      cpu: "60m"
+      memory: "100Mi"
       pods: "3"
     scopeSelector:
       matchExpressions:

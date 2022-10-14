@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bookstore-m
+  name: bookstore-l
   labels:
-    app: bookstore-m
+    app: bookstore-l
     tier: backend
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: bookstore-m
+      app: bookstore-l
       tier: backend
   template:
     metadata:
       labels:
-        app: bookstore-m
+        app: bookstore-l
         tier: backend
     spec:
       containers:
-      - name: bookstore-m
+      - name: bookstore-l
         image: ghcr.io/phyze/k8s/bookstore
         resources:
           limits:
-            memory: "20Mi"
-            cpu: "80m"
+            memory: "30Mi"
+            cpu: "20m"
         ports:
         - containerPort: 8080
-      priorityClassName: medium
+      priorityClassName: low

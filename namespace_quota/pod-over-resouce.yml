@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: low-priority
+  name: over-limit
 spec:
   containers:
-  - name: low-priority
+  - name: over-limit
     image: alpine
     command: ["/bin/sh"]
     args: ["-c", "while true; do echo hello; sleep 1;done"]
@@ -13,6 +13,6 @@ spec:
         cpu: 1m
         memory: 5m
       limits:
-        cpu: 30m
-        memory: 40Mi
-  priorityClassName: low
+        cpu: 110m
+        memory: 110Mi
+  priorityClassName: medium
