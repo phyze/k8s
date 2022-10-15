@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: readiness
+  name: readlive
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: readiness
+      app: readlive
   template:
     metadata:
       labels:
-        app: readiness
+        app: readlive
     spec:
       containers:
-      - name: readiness
+      - name: readlive
         image: ghcr.io/phyze/k8s/readlive
         resources:
           limits:

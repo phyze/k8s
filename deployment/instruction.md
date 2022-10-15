@@ -71,6 +71,17 @@ lookup
 kubectl get pod -l app=readiness
 ```
 
+## liveness and readiness
+
+```sh
+kubectl apply -f readlive.yml
+```
+
+lookup
+
+```sh
+kubectl get pod -l app=readlive
+```
 
 # clean
 
@@ -78,4 +89,5 @@ kubectl get pod -l app=readiness
 kubectl delete -f stategyDeploy.yml
 kubectl delete -f liveness.yml
 kubectl delete -f readiness.yml
+kubectl delete -f readlive.yml
 ```
