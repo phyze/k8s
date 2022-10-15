@@ -21,11 +21,19 @@ spec:
             cpu: "50m"
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /healthz-liveness
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 3
+          failureThreshold: 1
+          successThreshold: 1
         readinessProbe:
           httpGet:
             path: /healthz-readiness
             port: 8080
           initialDelaySeconds: 1
           periodSeconds: 3
-          failureThreshold: 3
+          failureThreshold: 1
           successThreshold: 1
