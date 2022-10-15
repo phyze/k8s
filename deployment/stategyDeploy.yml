@@ -7,8 +7,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+      maxSurge: 2
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: guestbook
@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: php-redis
-        image: ghcr.io/phyze/k8s/readlive
+        image: gcr.io/google_samples/gb-frontend:v3
         resources:
           limits:
             memory: "50Mi"
