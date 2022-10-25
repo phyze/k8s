@@ -1,0 +1,80 @@
+
+define: 
+  #maxSurge จำนวนที่เพิ่มเติมจาก replicas ในขณะทำการ rolling update
+  #จะต้องมีการสร้าง pod มาใหม่โดยไม่เกิน replicas + maxSurge เพื่อใช้สำหรับ
+  #การสร้าง pod ใหม่
+  maxSurge: 1 
+
+  #maxUnavailable จำนวนที่ยอมให้ terminate pod เก่า 
+  maxUnavailable: 1
+
+  #replicas คือจำนวนที่ตั้งเป้าหมายไว้ว่าจะต้องมี pod จำนวน 3 pod
+  replicas: 3
+
+step0:
+  #terminate คือ จำนวนที่จะถูกเปลียน status จาก Running เป็น Terminate
+  terminate: 0
+
+  #currentPod คือ จำนวนที่ Pod เกิดขึ้น ทั้ง pod ที่มี status เป็น Running และ ContainerCreating
+  currentPod: 3
+
+  old: 3
+  create: 0
+  rollingComplete: 0
+  
+
+step1:
+  #terminate ได้จาก maxUnavailable
+  #และเป็น pod ที่กำลังอยู่ในสถานะ Terminate
+  terminate: 1
+
+  #currentpod ได้จาก old + create + rollingComplete
+  currentPod: 4
+
+  #old ได้จากการนำ old(step0) - terminate ก็คือ 3 - 1 เท่ากับ 2
+  old: 2
+
+  #create ได้จากการนำ (maxLivePod - rollingComplete) - old ก็จะได้จำนวน pod ทีี่สามารถสร้างได้ คือ 2
+  create: 2
+
+  #rollingComplete เท่ากับ 0 เนื่องจาก pod ที่ create ยังไม่เสร็จหรือยังไม่ขึ้นสถานะ ready 1/1
+  rollingComplete: 0
+
+step2:
+  #terminate ได้จาก maxUnavailable 
+  #และเป็น pod ที่กำลังอยู่ในสถานะ Terminate
+  terminate: 1
+
+  #currentpod ได้จาก old + create + rollingComplete
+  currentPod: 4
+
+  #old ได้จาก old(step1) - terminate ก็คือ 2 - 1 เท่ากับ 1
+  old: 1
+
+  #create ได้จาก (maxLivePod - rollingComplete) - old ก็คือ (4-2) - 1 เท่ากับ 1
+  create: 1
+
+  #rollingComplete เท่ากับ 2 เนื่องจาก step1 ได้ทำการสร้าง pod มา 2 pod
+  #และตอนนี้ ready 1/1 เรียบร้อย
+  rollingComplete: 2
+
+step3:
+  #terminate ได้จาก maxUnavailable 
+  #และเป็น pod ที่กำลังอยู่ในสถานะ Terminate
+  terminate: 1
+
+  #currentpod ได้จาก old + create + rollingComplete
+  currentPod: 3
+
+  #old ได้จาก old(step2) - terminate ก็คือ 1 - 1 เท่ากับ 0
+  old: 0
+
+  #create ได้จาก (maxLivePod - rollingComplete) - old ก็คือ (4-2) - 1 เท่ากับ 1
+  create: 0
+
+  #rollingComplete เท่ากับ 3 เนื่องจาก step2 ได้ทำการสร้าง pod มา 1 pod
+  #และตอนนี้ ready 1/1 เรียบร้อย
+  rollingComplete: 3
+
+
+  
