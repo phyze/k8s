@@ -1,5 +1,8 @@
 # Deployment
 
+
+##  rolling update 
+
 ```sh
 kubectl apply -f gbv1.yml
 ```
@@ -16,7 +19,7 @@ lookup pods
 kubectl get pods -l app=guestbook
 ```
 
-rolling update 
+update version
 
 ```sh
 kubectl apply -f gbv2.yml
@@ -32,6 +35,50 @@ lookup image version
 
 ```sh
 kubectl describe deploy/guestbook -o jsonpath="{.spec.template.spec.containers[?(@.name=='guestbook')].image}"
+```
+
+get history of replicaSet that have rolling update 
+
+```sh
+kubectl get rs -l app=guestbook
+```
+
+## rollback
+
+deploy new version that make application crashing
+
+```sh
+kubectl apply -f crashapp.yml
+```
+
+lookup crash app
+
+```sh
+kubectl get pod -l app=guestbook
+```
+
+### roll back with command
+
+```sh
+kubectl rollout undo deploy/guestbook
+```
+
+or using --to-revision this way you can specific number of revision to rollback
+
+```sh
+kubectl rollout history deploy/guestbook
+```
+
+specific revision
+
+```sh
+kubectl rollout --to-revision=1 deploy/guestbook
+```
+
+### roll back with config yml
+
+```sh
+kubectl apply -f gbv2.yml
 ```
 
 ## stategy deployment
