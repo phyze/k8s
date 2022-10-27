@@ -6,7 +6,7 @@ metadata:
     app: guestbook
 spec:
   # modify replicas according to your case
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: guestbook
@@ -16,5 +16,5 @@ spec:
         app: guestbook
     spec:
       containers:
-      - name: php-redis
+      - name: guestbook
         image: gcr.io/google_samples/gb-frontend:v2

@@ -16,5 +16,5 @@ spec:
         app: guestbook
     spec:
       containers:
-      - name: php-redis
+      - name: guestbook
         image: gcr.io/google_samples/gb-frontend:v1
