@@ -11,7 +11,7 @@ kubectl apply -f financial.yml
 kubectl apply -f ingress-http.yml
 ```
 
-lookup ingress
+observe ingress
 
 ```sh
 kubectl get ing 
@@ -87,7 +87,7 @@ kubectl apply -f ingress-https.yml
 ```
 
 
-lookup ingress
+observe ingress
 
 ```sh
 kubectl get ing
@@ -103,7 +103,7 @@ curl https://YOU_DOMAIN:NODE_PORT/bookstore --insecure --resolve YOUR_DOMAIN:NOD
 curl https://YOU_DOMAIN:NODE_PORT/financial --insecure --resolve YOUR_DOMAIN:NODE_PORT:NODE_IP
 ```
 
-lookup cert
+observe cert
 
 ```sh
 curl https://YOU_DOMAIN:NODE_PORT/bookstore --insecure --resolve YOUR_DOMAIN:NODE_PORT:NODE_IP -Ivv

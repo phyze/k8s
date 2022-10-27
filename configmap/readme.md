@@ -13,7 +13,7 @@ apply nginx
 kubectl apply -f nginx.yml
 ```
 
-lookup Environment variable that map via configmap
+observe Environment variable that map via configmap
 
 ```sh
 kubectl exec -it nginx -- bash
@@ -22,7 +22,7 @@ exit
 ```
 
 
-forward port to nginx for lookup index.html that was volume
+forward port to nginx for observe index.html that was volume
 
 ```sh
 kubectl port-forward pod/nginx 8080:80

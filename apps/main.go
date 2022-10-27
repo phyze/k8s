@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"time"
 )
 
@@ -26,7 +25,7 @@ func main() {
 
 	http.HandleFunc("/healthz-liveness", func(w http.ResponseWriter, r *http.Request) {
 		tnow := time.Now().Minute()
-		if tnow % 3 == 0 {
+		if tnow%3 == 0 {
 			w.WriteHeader(400)
 			w.Write([]byte("fail"))
 			fmt.Println(tnow)
@@ -38,13 +37,13 @@ func main() {
 	})
 
 	http.HandleFunc("/secret", func(w http.ResponseWriter, r *http.Request) {
-		pwd,_ := os.LookupEnv("PASSWORD")
+		pwd, _ := os.observeEnv("PASSWORD")
 		w.Write([]byte(pwd))
 		w.WriteHeader(200)
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		hostname,_ := os.LookupEnv("HOSTNAME")
+		hostname, _ := os.observeEnv("HOSTNAME")
 		w.Write([]byte(hostname))
 		w.WriteHeader(200)
 	})

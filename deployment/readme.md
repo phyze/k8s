@@ -7,13 +7,13 @@
 kubectl apply -f gbv1.yml
 ```
 
-lookup deployment
+observe deployment
 
 ```sh
 kubectl get deployment -l app=guestbook
 ```
 
-lookup pods
+observe pods
 
 ```sh
 kubectl get pods -l app=guestbook
@@ -25,13 +25,13 @@ update version
 kubectl apply -f gbv2.yml
 ```
 
-lookup pods
+observe pods
 
 ```sh
 kubectl get pod -l app=guestbook
 ```
 
-lookup image version
+observe image version
 
 ```sh
 kubectl describe deploy/guestbook -o jsonpath="{.spec.template.spec.containers[?(@.name=='guestbook')].image}"
@@ -51,7 +51,7 @@ deploy new version that make application crashing
 kubectl apply -f crashapp.yml
 ```
 
-lookup crash app
+observe crash app
 
 ```sh
 kubectl get pod -l app=guestbook
@@ -87,7 +87,7 @@ kubectl apply -f gbv2.yml
 kubectl apply -f stategyDeploy.yml
 ```
 
-lookup 
+observe 
 
 ```sh
 kubectl get pod -l app=guestbook
@@ -99,7 +99,7 @@ kubectl get pod -l app=guestbook
 kubectl apply -f liveness.yml
 ```
 
-lookup
+observe
 
 ```sh
 kubectl get pod -l app=liveness
@@ -112,7 +112,7 @@ kubectl get pod -l app=liveness
 kubectl apply -f readiness.yml
 ```
 
-lookup
+observe
 
 ```sh
 kubectl get pod -l app=readiness
@@ -124,7 +124,7 @@ kubectl get pod -l app=readiness
 kubectl apply -f readlive.yml
 ```
 
-lookup
+observe
 
 ```sh
 kubectl get pod -l app=readlive
