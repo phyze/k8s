@@ -1,0 +1,8 @@
+pipeline {
+  stages {
+      stage('clone source code') {
+        git url: 'https://github.com/phyze/k8s.git' branch: 'main'
+        // git credentialsId: 'ID ที่ตั้งไว้' url: 'URL ของ private repo' branch: 'main'
+      }
+  }
+}
