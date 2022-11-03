@@ -11,6 +11,8 @@ spec:
       labels:
         app: readlive
     spec:
+      imagePullSecrets:
+        - registry
       containers:
       - name: readlive
         image: registry.coj:443/readlive
