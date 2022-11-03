@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 alpine:3.16.2
+FROM --platform=linux/amd64 ubuntu
 WORKDIR /app
 COPY ./main /app/
 EXPOSE 8080
