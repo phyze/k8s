@@ -1,8 +1,61 @@
 pipeline {
+  agent any
+  
   stages {
-      stage('clone source code') {
-        git url: 'https://github.com/phyze/k8s.git' branch: 'main'
-        // git credentialsId: 'ID ที่ตั้งไว้' url: 'URL ของ private repo' branch: 'main'
-      }
+
+    stage('clone source code') {
+        steps {
+            git branch: 'main', credentialsId: 'github', url: 'https://github.com/phyze/k8s.git'
+        }
+    }
+    
+    stage('unit test') {
+      tools {go '1.17'}
+        steps {
+            dir('apps/readlive') {
+                sh 'go test ./...'
+            }
+        }
+    }
+    
+    stage('build binary') {
+      tools {go '1.17'}
+          steps {
+          script {
+              dir('apps/readlive') {
+                    sh 'GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o main .'
+              }
+          }
+        }
+    }
+    
+    stage('build image') {
+          steps {
+            script {
+                dir('apps/readlive') {
+                    image = docker.build("registry.coj:443/readlive")
+                }
+            }
+        }
+    }
+    
+    stage('push image') {
+        steps {
+            script {
+              withDockerRegistry(credentialsId: 'registry', url: 'https://registry.coj:443') {
+                    image.push()
+                }
+            }
+        }
+    }
+    
+    stage('deploy to k8s') {
+        steps {
+            withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s-cert', namespace: '', serverUrl: 'https://10.100.78.66:6443') {
+                sh "kubectl apply -f apps/readlive/deployment.yml"
+                sh "for i in {1..3} ;do kubectl get pod ;sleep 1;done"
+            }
+        }
+    }
   }
 }
