@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readlive
+spec:
+  selector:
+    matchLabels:
+      app: readlive
+  template:
+    metadata:
+      labels:
+        app: readlive
+    spec:
+      containers:
+      - name: readlive
+        image: registry.coj:443/readlive
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
